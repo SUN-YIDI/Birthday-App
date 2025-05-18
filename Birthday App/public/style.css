@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: repeating-linear-gradient(0deg, red, red 40px, white 40px, white 80px);
+  font-family: sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+input, button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+}
+
+button {
+  cursor: pointer;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 16px;
+}
+button:hover {
+  background-color: darkred;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Enter Birthday</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-box">
+    <h2>Enter Your Birthday</h2>
+    
+    <form id="birthdayForm">
+      <input 
+        type="text" 
+        name="name" 
+        placeholder="Enter your name" 
+        required 
+        maxlength="30"
+      />
+      
+      <input 
+        type="date" 
+        name="birthday" 
+        required
+      />
+      
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+  </div>
+
+  <script>
+  document.getElementById('birthdayForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Submitting...';
+
+    const formData = new FormData(e.target);
+    const name = formData.get('name').trim();
+    const birthday = formData.get('birthday');
+
+    try {
+      // 先提交数据
+      const res = await fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, birthday })
+      });
+
+      // 再获取结果信息
+      const checkRes = await fetch(`/check?name=${encodeURIComponent(name)}`);
+      const result = await checkRes.json();
+
+      // 弹窗显示生日结果
+      alert(result.message);
+
+      // 重置表单，按钮恢复
+      e.target.reset();
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Submit';
+    } catch (error) {
+      alert('An error occurred. Please try again.');
+      console.error(error);
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Submit';
+    }
+  });
+</script>
+
+</body>
+</html>

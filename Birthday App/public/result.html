@@ -1,0 +1,25 @@
+<body>
+  <div class="form-box" id="resultBox">
+    Loading...
+  </div>
+
+  <!-- 🔽 添加返回首页按钮 -->
+  <div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.location.href = '/';">← Back to Home</button>
+  </div>
+
+  <script>
+    async function checkBirthday() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const name = urlParams.get('name');
+
+      const res = await fetch(`/check?name=${encodeURIComponent(name)}`);
+      const data = await res.json();
+
+      const box = document.getElementById('resultBox');
+      box.innerHTML = data.message;
+    }
+
+    checkBirthday();
+  </script>
+</body>
